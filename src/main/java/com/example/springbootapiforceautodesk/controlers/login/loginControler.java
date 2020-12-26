@@ -1,32 +1,37 @@
 package com.example.springbootapiforceautodesk.controlers.login;
-import com.example.springbootapiforceautodesk.models.user.User;
-import com.example.springbootapiforceautodesk.servieces.login.loginServieveImpl;
+import com.example.springbootapiforceautodesk.models.user.AuthRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
 @RequestMapping(value = "/login")
 public class loginControler {
     @Autowired
-    private loginServieveImpl loginImpl;
+    private jwtUntil jwtUntil;
     @Autowired
-    private cryptWithMD5 cryptWithMD5;
-    @RequestMapping(value="", method=RequestMethod.POST)
-    public boolean requestMethodName(@RequestParam (value = "email") String email,
-    @RequestParam(value = "password") String password) {
-        User user=loginImpl.get(email);
-        String passwordMd5=cryptWithMD5.decodeCryptWithMD5(password);
-        if(user!=null){
-            if(user.getPassword().toString().equals(passwordMd5)){
-                return true;
-            }
-            return false;
+    private AuthenticationManager uthenticationManager;
+    // @RequestMapping(value="", method=RequestMethod.POST)
+    // public String requestMethodName(@RequestParam (value = "email") String email,
+    // @RequestParam(value = "password") String password) {
+    // }
+    @RequestMapping(value = "",method = RequestMethod.POST)
+    public String generateToken(@RequestBody AuthRequest authrequest ) throws Exception {
+        try {
+            uthenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authrequest.getEmail(),authrequest.getPassword())
+            );
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println("Errrrkjsdsdkfjksvdf"+"    "+e);
+            throw new Exception("inavalid email/password");
         }
-        return false;
+        return jwtUntil.generateToken(authrequest.getEmail());
     }
 }
