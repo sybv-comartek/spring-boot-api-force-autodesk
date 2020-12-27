@@ -40,8 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
                 // TODO Auto-generated method stub
-                System.out.println("rawPassword"+"  "+rawPassword);
-                System.out.println("encodedPassword"+"  "+encodedPassword);
+                // System.out.println("rawPassword"+"  "+rawPassword);
+                // System.out.println("encodedPassword"+"  "+encodedPassword);
 
                 return encodedPassword.equals(cryptWithMD5.decodeCryptWithMD5((String)rawPassword));
             }

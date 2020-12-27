@@ -1,6 +1,5 @@
 package com.example.springbootapiforceautodesk.controlers.login;
 import com.example.springbootapiforceautodesk.models.user.AuthRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +28,6 @@ public class loginControler {
             );
         } catch (Exception e) {
             //TODO: handle exception
-            System.out.println("Errrrkjsdsdkfjksvdf"+"    "+e);
             throw new Exception("inavalid email/password");
         }
         return jwtUntil.generateToken(authrequest.getEmail());
