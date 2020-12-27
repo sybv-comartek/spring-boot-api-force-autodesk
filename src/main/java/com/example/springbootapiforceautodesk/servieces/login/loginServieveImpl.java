@@ -19,4 +19,8 @@ public class loginServieveImpl implements UserDetailsService {
         User user=loginRepository.getByEmail(email);
         return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),new ArrayList<>());
     }
+    public User get(String email){
+        User user=loginRepository.getByEmail(email);
+        return user;
+    }
 }

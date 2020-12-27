@@ -36,4 +36,6 @@ public class User implements Serializable {
     private String phone;
     @Column(name = "role")
     private String role;
+    @Column(name = "tokenId")
+    private String tokenId;
 }
