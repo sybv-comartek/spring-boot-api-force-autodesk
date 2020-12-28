@@ -54,7 +54,7 @@ public class jwtUntil {
 
     private String createToken(Map<String, Object> claims, String subject) {
 
-        return Jwts.builder().setClaims(claims).setId(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder().setClaims(claims).setSubject(subject).setId(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
     }

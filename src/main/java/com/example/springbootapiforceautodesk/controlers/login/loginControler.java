@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @RestController
-@RequestMapping(value = "/login")
 public class loginControler {
     @Autowired
     private jwtUntil jwtUntil;
@@ -20,7 +19,11 @@ public class loginControler {
     // public String requestMethodName(@RequestParam (value = "email") String email,
     // @RequestParam(value = "password") String password) {
     // }
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String get(){
+        return "Hello!";
+    }
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String generateToken(@RequestBody AuthRequest authrequest ) throws Exception {
         try {
             uthenticationManager.authenticate(
@@ -32,4 +35,6 @@ public class loginControler {
         }
         return jwtUntil.generateToken(authrequest.getEmail());
     }
+
+
 }
