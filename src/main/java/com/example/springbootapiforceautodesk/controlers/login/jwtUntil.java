@@ -41,7 +41,6 @@ public class jwtUntil {
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
-
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         User user=loginServieveImpl.get(username);
@@ -53,7 +52,7 @@ public class jwtUntil {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-
+        
         return Jwts.builder().setClaims(claims).setSubject(subject).setId(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
